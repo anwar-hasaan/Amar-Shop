@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | Amar Shop{% endblock title %}
+
+{% block home_banner %}
+<div class="row">
+    <div class="col-2">
+        <h1>Give Your Workout <br>A New Style!</h1>
+        <p>Success is not always about greatness. its about consistancy.
+            Consistent <br>hardwork gains success. Greatness will come.
+        </p>
+        <a href="" class="btn">Explore now &#8594;</a>
+    </div>
+    <div class="col-2">
+        <img src="{% static '/images/others/image1.png' %}" alt="">
+    </div>
+</div>
+{% endblock home_banner %}
+
+{% block content %}
+{% comment %} <!-----fetured catogories-------> {% endcomment %}
+<div class="categories">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <img src="{% static '/images/others/category-1.jpg' %}" alt="">
+            </div>
+            <div class="col-3">
+                <img src="{% static '/images/others/category-2.jpg' %}" alt="">
+            </div>
+            <div class="col-3">
+                <img src="{% static '/images/others/category-3.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <!------featured products---------> {% endcomment %}
+<div class="small-container">
+    <h2 class="title">Featured Products</h2>
+    <div class="row">
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-3.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-4.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+
+
+    <h2 class="title">Latest Products</h2>
+    <div class="row">
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-5.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-6.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} <!---------offer----------> {% endcomment %}
+<div class="offer">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{% static '/images/others/exclusive.png' %}" class="offer-img" alt="">
+            </div>
+            <div class="col-2">
+                <p>Exclusively available on Amar Shop</p>
+                <h1>Smart Band 4</h1>
+                <small>The Mi band 4 features a 40% Amoled color 
+                    full-touch display with adjustable brigthness,
+                    so everything is clear as can be.
+                </small> <br>
+                <a href="" class="btn">Buy Now &#8594;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <!--------testimonials----------> {% endcomment %}
+<div class="testimonial">
+    <div class="small-container">
+        <div class="row">
+
+            <div class="col-3">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis vitae quos voluptatibus repudiandae veritatis? Porro laudantium quis aspernatur non iusto hic doloribus possimus esse eum. Aliquam quae repellat culpa voluptatibus?</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                </div>
+                <img src="{% static '/images/others/user-1.png' %}" alt="">
+                <h3>Seajan</h3>
+            </div>
+
+            <div class="col-3">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis vitae quos voluptatibus repudiandae veritatis? Porro laudantium quis aspernatur non iusto hic doloribus possimus esse eum. Aliquam quae repellat culpa voluptatibus?</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                </div>
+                <img src="{% static '/images/others/user-2.png' %}" alt="">
+                <h3>Seajan</h3>
+            </div>
+
+            <div class="col-3">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis vitae quos voluptatibus repudiandae veritatis? Porro laudantium quis aspernatur non iusto hic doloribus possimus esse eum. Aliquam quae repellat culpa voluptatibus?</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                </div>
+                <img src="{% static '/images/others/user-3.png' %}" alt="">
+                <h3>Seajan</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} <!---------brands-----------> {% endcomment %}
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src="{% static '/images/icons/logo-coca-cola.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src="{% static '/images/icons/logo-godrej.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src="{% static '/images/icons/logo-oppo.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src="{% static '/images/icons/logo-paypal.png' %}" alt="">
+            </div>
+            <div class="col-5">
+                <img src="{% static '/images/icons/logo-philips.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

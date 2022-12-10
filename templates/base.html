@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static '/images/icons/logo.png' %}" width="125px">
+            </div>
+            <nav>
+                <ul id="menu-items">
+                    <li><a href="{% url 'shop:home' %}">Home</a></li>
+                    <li><a href="{% url 'shop:products' %}">Product</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="{% url 'shop:account' %}">Account</a></li>
+                </ul>
+            </nav>
+            <a href="{% url 'shop:cart' %}"><img src="{% static '/images/icons/cart.png' %}" width="30px" height="30px" alt=""></a>
+            <img src="{% static '/images/icons/menu.png' %}" id="menu-btn" class="menu-icon">
+        </div>
+        {% block home_banner %}
+        {% endblock home_banner %}
+    </div>
+</div>
+
+
+{% block content %} {% endblock content %}
+
+
+<!--------footer------------>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download Our App for Android and ios mobile phone.</p>
+                <div class="app-logo">
+                    <img src="{% static '/images/icons/play-store.png' %}" alt="">
+                    <img src="{% static '/images/icons/app-store.png' %}" alt="">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="{% static '/images/icons/logo-white.png' %}" alt="">
+                <p>Our purpose is to sustainably make the plesure and benefits of sports accessible to the many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return policy</li>
+                    <li>join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us on</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Tweeter</li>
+                    <li>Instagram policy</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022 - Amar Shop</p>
+    </div>
+</div>
+
+<script defer="defer" type="text/javascript" src="{% static "/js/main.js" %}"></script>
+<script defer="defer" type="text/javascript" src="{% static "/js/toggle_login_form.js" %}"></script>
+</body>
+</html>

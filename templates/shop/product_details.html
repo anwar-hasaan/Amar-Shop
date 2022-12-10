@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% comment %} <!------product details ---------> {% endcomment %}
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="{% static '/images/others/gallery-1.jpg' %}" id="product-img" alt="">
+
+            <div class="small-img-row">
+                <div class="small-img-col">
+                    <img src="{% static '/images/others/gallery-1.jpg' %}" class="small-img" width="100%" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{% static '/images/others/gallery-2.jpg' %}" class="small-img" width="100%" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{% static '/images/others/gallery-3.jpg' %}" class="small-img" width="100%" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <p>Home / T-shirt</p>
+            <h2>Red Printed T-shirt by Anwar anwar hasan</h2>
+            <h4>$50.00</h4>
+            <input type="number" value="1">
+            <a href="" class="btn">Add to cart</a>
+
+            <h3>Product Discription <i class="fa fa-indent" aria-hidden="true"></i></h3>
+            <br>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate explicabo accusamus commodi, minima maxime molestiae fuga, amet dolorum nam quas, optio placeat neque. Dignissimos labore voluptatum ex magni ipsam.</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Related Products</h2>
+        <p><a href="">View More &#8594;</a></p>
+    </div>
+</div>
+
+{% comment %} <!------related products---------> {% endcomment %}
+<div class="small-container">
+    <div class="row">
+        <div class="col-4">
+            <img src="{% static '/images/others/product-1.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-2.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-3.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-4.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

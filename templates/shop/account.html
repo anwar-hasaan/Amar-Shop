@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Account | Amar Shop{% endblock title %}
+
+{% block content %}
+<!-----------account page-------------->
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{% static '/images/others/image1.png' %}" alt="">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span id="login">Login</span>
+                        <span id="register">Register</span>
+                        <hr id="indicator">
+                    </div>
+                    <form action="" method="post" id="login-form">
+                        <input type="text" placeholder="username">
+                        <input type="password" placeholder="password">
+                        <input type="submit" class="btn" value="Login">
+                        <a href="">Forgot password</a>
+                    </form>
+
+                    <form action="" method="post" id="register-form">
+                        <input type="text" placeholder="username">
+                        <input type="email" placeholder="email">
+                        <input type="password" placeholder="password">
+                        <input type="submit" class="btn" value="Register">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

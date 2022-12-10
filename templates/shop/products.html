@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products | Amar Shop{% endblock title %}
+
+{% block content %}
+{% comment %} <!------all products---------> {% endcomment %}
+<div class="small-container">
+    <div class="row row-2">
+        <h2 style="color: #555;">All Products</h2>
+        <select name="" id="">
+            <option value="default">default sort</option>
+            <option value="byPrice">sort by price</option>
+            <option value="bypopularity">sort by popularity</option>
+            <option value="byDiscount">sort by discount</option>
+            <option value="byRating">sort by rating</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <img src="{% static '/images/others/product-1.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+      
+        <div class="col-4">
+            <img src="{% static '/images/others/product-2.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-3.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="{% static '/images/others/product-4.jpg' %}" alt="">
+            <h4>Red Printed T-shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+    <div class="page-btn">
+        <span><a href="#">1</a></span>
+        <span><a href="#">2</a></span>
+        <span><a href="#">3</a></span>
+        <span><a href="#">&#8594;</a></span>
+    </div>
+</div>
+{% endblock content %}
