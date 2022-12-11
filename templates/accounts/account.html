@@ -18,17 +18,20 @@
                         <span id="register">Register</span>
                         <hr id="indicator">
                     </div>
-                    <form action="" method="post" id="login-form">
-                        <input type="text" placeholder="username">
-                        <input type="password" placeholder="password">
+                    <form action="{% url 'account:login' %}" method="POST" id="login-form">
+                        {% csrf_token %}
+                        <input type="number" name="phone" placeholder="phone number *">
+                        <input type="password" name="password" placeholder="password *">
                         <input type="submit" class="btn" value="Login">
                         <a href="">Forgot password</a>
                     </form>
 
-                    <form action="" method="post" id="register-form">
-                        <input type="text" placeholder="username">
-                        <input type="email" placeholder="email">
-                        <input type="password" placeholder="password">
+                    <form action="{% url 'account:register' %}" method="POST" id="register-form">
+                        {% csrf_token %}
+                        <input type="number" name="phone" placeholder="phone number *" required>
+                        <input type="email" email="email" placeholder="email">
+                        <input type="password" name="password" placeholder="password *" required>
+                        <input type="password" name="password2" placeholder="confirm password *" required>
                         <input type="submit" class="btn" value="Register">
                     </form>
                 </div>

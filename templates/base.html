@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <title>{% block title %}{% endblock title %}</title>
 </head>
@@ -22,14 +22,20 @@
                 <ul id="menu-items">
                     <li><a href="{% url 'shop:home' %}">Home</a></li>
                     <li><a href="{% url 'shop:products' %}">Product</a></li>
-                    <li><a href="">About</a></li>
+                    {% comment %} <li><a href="/admin">Admin</a></li> {% endcomment %}
+                    <li><a href="/admin">{{request.user.username}}</a></li>
                     <li><a href="">Contact</a></li>
-                    <li><a href="{% url 'shop:account' %}">Account</a></li>
+                    <li><a href="{% url 'account:home' %}">Account</a></li>
                 </ul>
             </nav>
             <a href="{% url 'shop:cart' %}"><img src="{% static '/images/icons/cart.png' %}" width="30px" height="30px" alt=""></a>
             <img src="{% static '/images/icons/menu.png' %}" id="menu-btn" class="menu-icon">
         </div>
+
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+
         {% block home_banner %}
         {% endblock home_banner %}
     </div>
