@@ -293,10 +293,10 @@ select:focus{
 .single-product .col-2 img{
     padding: 0;
 }
-.single-product h4{
+.single-product .offer-price{
     margin: 20px 0;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: normal;
 }
 .single-product select{
     display: block;
@@ -322,6 +322,7 @@ select:focus{
 .small-img-row{
     display: flex;
     justify-content: center;
+    margin-right: 5px;
 }
 .small-img-col{
     flex-basis: 25%;
@@ -352,9 +353,9 @@ td{
     padding: 10px 5px;
 }
 td input{
-    width: 40px;
+    width: 30px;
     height: 30px;
-    padding: 5px;
+    padding: 3px;
     outline: none;
 }
 td a{
@@ -452,6 +453,16 @@ from .btn:focus{
     transition: transform 0.5s;
 }
 
+/*---------- cart item plus minus-------------- */
+#plus, #minus{
+    border: 1px solid #555;
+    padding: 2px;
+    margin: 3px;
+    width: 30px;
+    height: 20px;
+    position: relative;
+}
+
 
 
 @media only screen and (max-width: 800px){
@@ -486,13 +497,17 @@ from .btn:focus{
         flex-basis: 100%;
     }
     .single-product .row{
-        text-align: left;
+        text-align: center;
     }
     .single-product .col-2{
-        padding: 20px 0;
+        padding: 20px 10px;
     }
     .single-product h2{
         font-size: 22px;
-        line-height: 32px;
+        line-height: 30px;
+    }
+    #cart-quantity{
+        display: flex;
+        flex-direction: column;
     }
 }

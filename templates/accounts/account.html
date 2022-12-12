@@ -20,7 +20,7 @@
                     </div>
                     <form action="{% url 'account:login' %}" method="POST" id="login-form">
                         {% csrf_token %}
-                        <input type="number" name="phone" placeholder="phone number *">
+                        <input type="text" name="phone" placeholder="phone number *">
                         <input type="password" name="password" placeholder="password *">
                         <input type="submit" class="btn" value="Login">
                         <a href="">Forgot password</a>

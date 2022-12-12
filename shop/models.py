@@ -10,6 +10,7 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15)
     district = models.CharField(max_length=20, choices=utails.DISTRICT_CHOICES, null=True, blank=True)
     city = models.CharField(max_length=20, choices=utails.CITY_CHOICES, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     address = models.TextField()
 
     def save(self,*args,**kwargs):
@@ -33,13 +34,13 @@ class Product(models.Model):
     title = models.CharField(max_length=250)
     model = models.CharField(max_length=250, null=True, blank=True)
     image = models.ManyToManyField(ProductImage)
-    descriptiion = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=utails.PRODUCT_STATUS, null=True, blank=True)
     quantity = models.PositiveIntegerField()
     regular_price = models.PositiveIntegerField()
     discount_price = models.PositiveIntegerField()
     rating = models.FloatField(default=5.0, null=True, blank=True)
-
+    added_at = models.DateTimeField(auto_now_add=True)
     def discount(self):
         return self.regular_price - self.discount_price
     def is_available(self):
@@ -53,18 +54,21 @@ class Product(models.Model):
 
 class Cart(models.Model):
     _user = models.ForeignKey(User, on_delete=models.CASCADE)
-    _product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
+    is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self._product.title
+        return self.product.title
 
 class OrderPlaced(models.Model):
     _user = models.ForeignKey(User, on_delete=models.CASCADE)
     _customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    _product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField()
     status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0])
+    ordered_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self._product.title
+        return self.product.title
