@@ -16,12 +16,9 @@ menu_btn.addEventListener('click', function(){
 // toggle image--product details page
 let product_img = document.getElementById('product-img');
 let small_img = document.getElementsByClassName('small-img');
-small_img[0].addEventListener('click', function(){
-    product_img.src = small_img[0].src;
-})
-small_img[1].addEventListener('click', function(){
-    product_img.src = small_img[1].src;
-})
-small_img[2].addEventListener('click', function(){
-    product_img.src = small_img[2].src;
-})
+
+for (let index = 0; index < small_img.length; index++) {
+    small_img[index].addEventListener('click', function(){
+            product_img.src = small_img[index].src;
+        })    
+}

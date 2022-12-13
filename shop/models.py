@@ -22,6 +22,7 @@ class Customer(models.Model):
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to=utails.get_upload_dir)
+    @property
     def get_url(self):
         return f"/media/{self.image}"
     def __str__(self):
@@ -57,8 +58,10 @@ class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
-    is_ordered = models.BooleanField(default=False)
 
+    @property
+    def get_sub_total(self):
+        return self.quantity * self.product.discount_price
     def __str__(self):
         return self.product.title
 

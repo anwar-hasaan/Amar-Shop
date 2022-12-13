@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.views.generic import ListView, DetailView
 from shop.models import Product, Cart, Customer, OrderPlaced
 from django.contrib.auth.decorators import login_required
+
+SHIPING_CHARGE = 50
 
 def home(request):
     return render(request, 'shop/home.html')
@@ -19,11 +22,15 @@ class product_details(DetailView):
 @login_required
 def cart(request):
     user = request.user
-    cart_products = Cart.objects.filter(_user=user, is_ordered=False)
+    cart_products = Cart.objects.filter(_user=user)
+    sub_total_cost = 0
     for cart in cart_products:
-        print(cart.product.title)
+        sub_total_cost += cart.get_sub_total
     context = {
-        'carts': cart_products
+        'carts': cart_products,
+        'shiping': SHIPING_CHARGE,
+        'sub_total': sub_total_cost,
+        'total_cost': sub_total_cost+SHIPING_CHARGE
     }
     return render(request, 'shop/cart.html', context)
 
@@ -31,8 +38,8 @@ def add_to_cart(request, product_id):
     user = request.user
     product = Product.objects.filter(product_id=product_id).first()
     if product:
-        cart_products = Cart.objects.filter(_user=user, is_ordered=False)
-        cart_products = [cart._product for cart in cart_products]
+        cart_products = Cart.objects.filter(_user=user)
+        cart_products = [cart.product for cart in cart_products]
         if product in cart_products:
             print('in cart')
             in_cart = Cart.objects.get(product=product)
@@ -43,7 +50,70 @@ def add_to_cart(request, product_id):
             cart = Cart.objects.create(_user=user, product=product)
             cart.save()
             print('product added')
+    return redirect('/cart')
+    
+@login_required
+def increase_item(request):
+    user = request.user
+    product_id = request.GET.get('product_id')
+    c = Cart.objects.get(product__product_id=product_id, _user=user)
+    if c.quantity < 10:
+        c.quantity += 1
+        c.save()
+    
+    sub_total = 0
+    cart_quantity = 0
+    for cart in Cart.objects.filter(_user=user):
+        sub_total += cart.get_sub_total
+        cart_quantity += cart.quantity
+    
+    data = {
+        'all_prod_subtotal_cost': sub_total,
+        'all_prod_total_cost': sub_total + SHIPING_CHARGE,
+        'sub_total': c.get_sub_total,
+        'quantity': c.quantity,
+        'cart_quantity': cart_quantity
+    }
+    return JsonResponse(data)
 
-        
-        
-    return render(request, 'shop/cart.html')
+@login_required
+def decrease_item(request):
+    user = request.user
+    product_id = request.GET.get('product_id')
+    c = Cart.objects.get(product__product_id=product_id, _user=user)
+    if c.quantity > 1:
+        c.quantity -= 1
+        c.save()
+    
+    sub_total = 0
+    cart_quantity = 0
+    for cart in Cart.objects.filter(_user=user):
+        sub_total += cart.get_sub_total
+        cart_quantity += cart.quantity
+    data = {
+        'all_prod_subtotal_cost': sub_total,
+        'all_prod_total_cost': sub_total + SHIPING_CHARGE,
+        'sub_total': c.get_sub_total,
+        'quantity': c.quantity,
+        'cart_quantity': cart_quantity
+    }
+    return JsonResponse(data)
+
+@login_required
+def remove_cart_item(request):
+    user = request.user
+    product_id = request.GET.get('product_id')
+    c = Cart.objects.get(product__product_id=product_id, _user=user)
+    c.delete()
+    
+    sub_total = 0
+    cart_quantity = 0
+    for cart in Cart.objects.filter(_user=user):
+        sub_total += cart.get_sub_total
+        cart_quantity += cart.quantity
+    data = {
+        'all_prod_subtotal_cost': sub_total,
+        'all_prod_total_cost': sub_total + SHIPING_CHARGE,
+        'cart_quantity': cart_quantity
+    }
+    return JsonResponse(data)

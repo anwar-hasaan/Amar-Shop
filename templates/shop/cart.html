@@ -4,15 +4,15 @@
 
 {% block content %}
 <!---------cart details------------>
-<div class="small-container cart-page">
-    
+<div class="small-container cart-page" id="cart-main-container">
+    {% if carts %}
     <table>
-        <thead>
+        <thead id="temp">
             <th>Product</th>
             <th>Quantity</th>
             <th>Subtotal</th>
         </thead>
-        {% if carts %}
+        
         {% for cart in carts %}
         <tr>
             <td>
@@ -24,34 +24,42 @@
                         <p>{{cart.product.title}}</p>
                         <small>&#2547; {{cart.product.discount_price}}</small>
                         <br>
-                        <a href="">Remove</a>
+                        <p class="remove" product_id="{{cart.product.product_id}}">Remove</p>
                     </div>
                 </div>
             </td>
-            <td id="cart-quantity"><span id="minus">-</span><input type="number" value="1" disabled> <span id="plus">+</span></td>
-            <td>&#2547; {{cart.product.discount_price}}</td>
+            <td id="cart-quantity">
+                <span><i class="fa fa-minus-square quantity-decrease" product_id="{{cart.product.product_id}}"></i></span>
+                    <p class="quantity">{{cart.quantity}}</p>
+                <span><i class="fa fa-plus-square quantity-increase" product_id="{{cart.product.product_id}}"></i></i></span>
+            </td>
+            <td>&#2547; {{cart.get_sub_total}}</td>
         </tr>
         {% endfor %}
-        {% endif %}
+        
     </table>
     
-
-    <div class="total-price">
+    
+    <div class="total-price" id="total-price">
         <table>
             <tr>
                 <td>Subtotal</td>
-                <td>150.00</td>
+                <td id="sub-total">&#2547; {{sub_total}}</td>
             </tr>
             <tr>
-                <td>Tax</td>
-                <td>12.00</td>
+                <td>Shiping Charge</td>
+                <td>&#2547; {{shiping}}</td>
             </tr>
             <tr>
                 <td>Total</td>
-                <td>180.00</td>
+                <td id="total">&#2547; {{total_cost}}</td>
             </tr>
         </table>
     </div>
-    
+    {% else %}
+        <div class="small-container empty-cart">
+            <h3>You don't have any products in your cart!</h3>
+        </div>
+    {% endif %}
 </div>
 {% endblock content %}
