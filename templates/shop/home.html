@@ -10,7 +10,7 @@
         <p>Success is not always about greatness. its about consistancy.
             Consistent <br>hardwork gains success. Greatness will come.
         </p>
-        <a href="" class="btn">Explore now &#8594;</a>
+        <a href="{% url 'shop:products' %}" class="btn">Explore now &#8594;</a>
     </div>
     <div class="col-2">
         <img src="{% static '/images/others/image1.png' %}" alt="">
@@ -38,12 +38,16 @@
 
 {% comment %} <!------featured products---------> {% endcomment %}
 <div class="small-container">
+    {% if featured %}
     <h2 class="title">Featured Products</h2>
     <div class="row">
 
+        {% for product in featured %}
         <div class="col-4">
-            <img src="{% static '/images/others/product-3.jpg' %}" alt="">
-            <h4>Red Printed T-shirt</h4>
+            {% with product.image.all|first as image %}
+                    <img src="{{image.get_url}}" />
+            {% endwith %}
+            <h4>{{product.title}}</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -51,30 +55,21 @@
                 <i class="fa fa-star-half-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$50.00</p>
+            <p>&#2547; {{product.discount_price}}</p>
         </div>
-
-        <div class="col-4">
-            <img src="{% static '/images/others/product-4.jpg' %}" alt="">
-            <h4>Red Printed T-shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
+        {% endfor %}
     </div>
+    {% endif %}
 
-
+    {% if latest %}
     <h2 class="title">Latest Products</h2>
     <div class="row">
-
+        {% for product in latest %}
         <div class="col-4">
-            <img src="{% static '/images/others/product-5.jpg' %}" alt="">
-            <h4>Red Printed T-shirt</h4>
+            {% with product.image.all|first as image %}
+                <a href="/product/{{product.product_id}}"><img src="{{image.get_url}}"/></a>
+            {% endwith %}
+            <h4><a href="/product/{{product.product_id}}">{{product.title}}</a></h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -82,44 +77,35 @@
                 <i class="fa fa-star-half-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$50.00</p>
+            <p>&#2547; {{product.discount_price}}</p>
         </div>
-
-        <div class="col-4">
-            <img src="{% static '/images/others/product-6.jpg' %}" alt="">
-            <h4>Red Printed T-shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
+        {% endfor %}
     </div>
+    {% endif %}
 </div>
 
 
 {% comment %} <!---------offer----------> {% endcomment %}
+{% if exclusive %}
 <div class="offer">
     <div class="small-container">
         <div class="row">
             <div class="col-2">
-                <img src="{% static '/images/others/exclusive.png' %}" class="offer-img" alt="">
+                {% with exclusive.image.all|first as image %}
+                    <img src="{{image.get_url}}" class="offer-img" />
+                {% endwith %}
             </div>
             <div class="col-2">
                 <p>Exclusively available on Amar Shop</p>
-                <h1>Smart Band 4</h1>
-                <small>The Mi band 4 features a 40% Amoled color 
-                    full-touch display with adjustable brigthness,
-                    so everything is clear as can be.
-                </small> <br>
-                <a href="" class="btn">Buy Now &#8594;</a>
+                <h1>{{exclusive.title}}</h1>
+                <small>{{exclusive.description}}</small> 
+                <br>
+                <a href="/product/{{exclusive.product_id}}" class="btn">Buy Now &#8594;</a>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 
 {% comment %} <!--------testimonials----------> {% endcomment %}
 <div class="testimonial">

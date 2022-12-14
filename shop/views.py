@@ -7,7 +7,17 @@ from django.contrib.auth.decorators import login_required
 SHIPING_CHARGE = 50
 
 def home(request):
-    return render(request, 'shop/home.html')
+    latest = Product.objects.filter(status='lastest')
+    featured = Product.objects.filter(status='featured')
+    exclusive = Product.objects.filter(status='exclusive').first()
+    
+    context = {
+        'latest': latest,
+        'featured': featured,
+        'exclusive': exclusive
+    }
+    print(context)
+    return render(request, 'shop/home.html', context)
 
 class product_list(ListView):
     model = Product
@@ -34,6 +44,7 @@ def cart(request):
     }
     return render(request, 'shop/cart.html', context)
 
+@login_required
 def add_to_cart(request, product_id):
     user = request.user
     product = Product.objects.filter(product_id=product_id).first()

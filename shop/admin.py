@@ -2,19 +2,27 @@ from django.contrib import admin
 from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = []
+    list_display = ['_user', 'customer_id', 'created_at', 'address']
+    search_fields = ['_user']
+    ordering = ['customer_id', '_user', 'created_at']
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = []
+    list_display = ['product_id', 'title', 'status', 'quantity', 'discount_price', 'rating']
+    search_fields = ['title', 'status']
+    ordering = ['product_id', 'status', 'discount_price', 'rating']
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = []
+    list_display = ['product', '_user', 'quantity', 'added_at']
+    search_fields = ['product', '_user']
+    ordering = ['_user', 'quantity', 'added_at']
 
 class OrderPlacedAdmin(admin.ModelAdmin):
-    list_display = []
+    list_display = ['product','_customer', '_user',  'quantity', 'status', 'ordered_at']
+    search_fields = ['_user', 'product', 'status']
+    ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
-admin.site.register(Customer)
-admin.site.register(Product)
+admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
-admin.site.register(Cart)
-admin.site.register(OrderPlaced)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(OrderPlaced, OrderPlacedAdmin)

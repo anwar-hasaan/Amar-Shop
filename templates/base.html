@@ -25,10 +25,20 @@
                 <ul id="menu-items">
                     <li><a href="{% url 'shop:home' %}">Home</a></li>
                     <li><a href="{% url 'shop:products' %}">Product</a></li>
-                    {% comment %} <li><a href="/admin">Admin</a></li> {% endcomment %}
-                    <li><a href="/admin">{{request.user.username}}</a></li>
                     <li><a href="">Contact</a></li>
-                    <li><a href="{% url 'account:home' %}">Account</a></li>
+
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.username == 'admin' %}
+                        <li><a href="/admin">{{request.user.username}}</a></li>
+                        {% else %}
+                        <li><a href="#">{{request.user}}</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                    {% endif %}
+                    
+                    {% if not request.user.is_authenticated %}
+                        <li><a href="{% url 'account:home' %}">Account</a></li>
+                    {% endif %}
                 </ul>
             </nav>
             <a href="{% url 'shop:cart' %}"><p class="badge" id="quantity-badge">{{request.user|count_cart_product}}</p><img src="{% static '/images/icons/cart.png' %}" width="30px" height="30px"></a>

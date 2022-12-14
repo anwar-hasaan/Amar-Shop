@@ -42,11 +42,13 @@ PRODUCT_STATUS = (
     ('normal', 'Normal'),
     ('lastest', 'Latest Product'),
     ('featured', 'Featured Product'),
-    ('big_discount', 'Big Discount')
+    ('big_discount', 'Big Discount'),
+    ('exclusive', 'Exclusive'),
 )
 
 PRODUCT_CATEGORY = (
     ('electronics', 'Electronics'),
+    ('domestic', 'Domestic'),
 )
 
 ORDER_STATUS = (
