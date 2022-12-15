@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load account_tags %}
 
 {% block title %}Account | Amar Shop{% endblock title %}
 
@@ -18,7 +19,8 @@
                         <span id="register">Register</span>
                         <hr id="indicator">
                     </div>
-                    <form action="{% url 'account:login' %}" method="POST" id="login-form">
+                    {% comment %} <!------'next=request.get_full_path' will return the current url as get request for redirecting to next page after login -----> {% endcomment %}
+                    <form action="{% url 'account:login' %}?next={{request.get_full_path|next_page_url}}" method="POST" id="login-form">
                         {% csrf_token %}
                         <input type="text" name="phone" placeholder="phone number *">
                         <input type="password" name="password" placeholder="password *">

@@ -57,9 +57,13 @@
         </table>
     </div>
     {% else %}
-        <div class="small-container empty-cart">
+    <div class="small-container">
+        <div class="empty-cart">
             <h3>You don't have any products in your cart!</h3>
         </div>
+        <br>
+        <a href="{% url 'shop:products' %}" class="btn">Continue Shoping</a>
+    </div>
     {% endif %}
 </div>
 {% endblock content %}

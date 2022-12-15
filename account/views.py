@@ -22,7 +22,12 @@ def login_view(request):
         if user:
             login(request, user=user)
             messages.success(request, 'Login success')
-            return redirect('/account')
+            
+            next_page = request.GET.get('next')
+            if next_page != 'None':
+                return redirect(next_page)
+            else:
+                return redirect('/cart')
         messages.error(request, 'incorrect phone or password')
         return redirect('/account')
 

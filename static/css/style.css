@@ -209,6 +209,7 @@ small{
 }
 .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4{
     min-width: 250px;
+    max-width: 30%;
     margin: 20px 0;
 }
 .footer-col-1{
@@ -282,6 +283,15 @@ select:focus{
     color: #fff;
 }
 
+/* ---------box shadow of all products ---------- */
+.row .col-4{
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.5s;
+    border-radius: 2px;
+}
 
 /* -----------------product details , single product--------------- */
 .single-product{
@@ -505,6 +515,9 @@ from .btn:focus{
     .col-2, col-3, col-4{
         flex-basis: 100%;
     }
+    .col-4{
+        min-width: 87vw;
+    }
     .single-product .row{
         text-align: center;
     }
@@ -523,7 +536,7 @@ from .btn:focus{
         margin-left: -7px;
     }
     .empty-cart{
-        height: 100px;
+        height: 25vh;
         font-size: 22px;
     }
 }
