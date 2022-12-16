@@ -15,7 +15,7 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-<div class="header">
+<div class="header" id="top">
     <div class="container">
         <div class="navbar">
             <div class="logo">
@@ -70,7 +70,7 @@
             </div> -->
             <div class="footer-col-2">
                 <img src="{% static '/images/icons/logo_footer.png' %}" alt="">
-                <p>Our purpose is to sustainably make the plesure and benefits of sports accessible to the many.</p>
+                <p>Our purpose is to sustainably make the plesure and benefits of electronics products accessible to the many.</p>
             </div>
             <div class="footer-col-3">
                 <h3>Useful links</h3>
@@ -84,9 +84,9 @@
             <div class="footer-col-4">
                 <h3>Follow us on</h3>
                 <ul>
-                    <li>Facebook</li>
-                    <li>Tweeter</li>
-                    <li>Instagram policy</li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100013294023949" target="_blank">Facebook</a></li>
+                    <!-- <li>Tweeter</li> -->
+                    <!-- <li>Instagram</li> -->
                     <li>Youtube</li>
                 </ul>
             </div>
@@ -96,6 +96,7 @@
     </div>
 </div>
 
+<a id="button">&#8657;</a>
 <script defer="defer" type="text/javascript" src="{% static "/js/main.js" %}"></script>
 <script defer="defer" type="text/javascript" src="{% static "/js/toggle_login_form.js" %}"></script>
 <script defer="defer" type="text/javascript" src="{% static "/js/cart_ajax.js" %}"></script>

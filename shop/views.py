@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 SHIPING_CHARGE = 50
 
 def home(request):
-    print(request)
     latest = Product.objects.filter(status='lastest')
     featured = Product.objects.filter(status='featured')
     exclusive = Product.objects.filter(status='exclusive').first()

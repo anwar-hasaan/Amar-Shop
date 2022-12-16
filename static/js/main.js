@@ -22,3 +22,20 @@ for (let index = 0; index < small_img.length; index++) {
             product_img.src = small_img[index].src;
         })    
 }
+
+
+
+// back to top btn
+let btn = $('#button');
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 500) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
