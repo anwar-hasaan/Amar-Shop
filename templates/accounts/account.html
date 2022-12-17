@@ -15,8 +15,8 @@
             <div class="col-2">
                 <div class="form-container">
                     <div class="form-btn">
-                        <span id="login">Login</span>
-                        <span id="register">Register</span>
+                        <span class="log-reg-btn" id="login">Login</span>
+                        <span class="log-reg-btn" id="register">Register</span>
                         <hr id="indicator">
                     </div>
                     {% comment %} <!------'next=request.get_full_path' will return the current url as get request for redirecting to next page after login -----> {% endcomment %}
@@ -24,6 +24,7 @@
                         {% csrf_token %}
                         <input type="text" name="phone" placeholder="phone number *">
                         <input type="password" name="password" placeholder="password *">
+                        <span class="check-span">stay signed in? <input type="checkbox" id="check" name="remember"></span>
                         <input type="submit" class="btn" value="Login">
                         <a href="">Forgot password</a>
                     </form>

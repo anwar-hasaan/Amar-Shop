@@ -28,7 +28,7 @@ for (let index = 0; index < small_img.length; index++) {
 // back to top btn
 let btn = $('#button');
 $(window).scroll(function() {
-  if ($(window).scrollTop() > 500) {
+  if ($(window).scrollTop() > 600) {
     btn.addClass('show');
   } else {
     btn.removeClass('show');

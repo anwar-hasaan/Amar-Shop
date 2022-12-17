@@ -4,9 +4,13 @@ from django.views.generic import ListView, DetailView
 from shop.models import Product, Cart, Customer, OrderPlaced
 from django.contrib.auth.decorators import login_required
 
+from account.utails import login_using_session
+
 SHIPING_CHARGE = 50
 
 def home(request):
+    if not request.user.is_authenticated:
+        login_using_session(request=request)
     latest = Product.objects.filter(status='lastest')
     featured = Product.objects.filter(status='featured')
     exclusive = Product.objects.filter(status='exclusive').first()

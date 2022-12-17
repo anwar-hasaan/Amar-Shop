@@ -3,26 +3,25 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from account import utails
 
-
-def account(request):
-    if request.method == 'POST':
-        pass
-
-    context = {
-    }
-    return render(request, 'accounts/account.html', context)
+def account(request):    
+    return render(request, 'accounts/account.html')
 
 def login_view(request):
     if request.method == 'POST':
         phone = request.POST.get('phone')
         password = request.POST.get('password')
+        remember = request.POST.get('remember')
         
         user = authenticate(request, username=phone, password=password)
         if user:
             login(request, user=user)
             messages.success(request, 'Login success')
             
+            if remember != None:
+                utails.set_login_session_cookies(request, phone, password)
+
             next_page = request.GET.get('next')
             if next_page != 'None':
                 return redirect(next_page)
@@ -59,6 +58,8 @@ def register_view(request):
 
 @login_required
 def logout_view(request):
+    request.session.clear_expired()
+    
     logout(request)
     messages.success(request, 'Logout success')
     return redirect('/account')
