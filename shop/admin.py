@@ -7,7 +7,7 @@ class CustomerAdmin(admin.ModelAdmin):
     ordering = ['customer_id', '_user', 'created_at']
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['product_id', 'title', 'status', 'quantity', 'discount_price', 'rating']
+    list_display = ['title', 'product_id', 'status', 'quantity', 'discount_price', 'rating']
     search_fields = ['title', 'status']
     ordering = ['product_id', 'status', 'discount_price', 'rating']
 

@@ -34,16 +34,45 @@ class product_details(DetailView):
 
 @login_required
 def cart(request):
+    # showing user cart, products and cost info
+    CART = True
     user = request.user
     cart_products = Cart.objects.filter(_user=user)
     sub_total_cost = 0
     for cart in cart_products:
         sub_total_cost += cart.get_sub_total
+
+    # if cliant press 'checkout'
+    CHECKOUT = False
+    CUSTOMERS = False
+    ADDRESS = False
+    if request.method == 'POST':
+        if 'checkout' in request.POST:
+            CHECKOUT = True
+            CART = False
+
+            CUSTOMERS = Customer.objects.filter(_user=user)
+        if 'address' in request.POST: # when clicked NEXT after selecting address
+            ADDRESS = True
+            CHECKOUT = False
+            CART = False
+
+            cus_id = request.POST.get('customer-id')
+            customer = Customer.objects.filter(customer_id=cus_id).first()
+
+            # from CART to ORDERPLACED
+            
+        
     context = {
         'carts': cart_products,
         'shiping': SHIPING_CHARGE,
         'sub_total': sub_total_cost,
-        'total_cost': sub_total_cost+SHIPING_CHARGE
+        'total_cost': sub_total_cost+SHIPING_CHARGE,
+        
+        'CART': CART,
+        'CHECKOUT': CHECKOUT,
+        'ADDRESS' : ADDRESS,
+        'customers': CUSTOMERS,
     }
     return render(request, 'shop/cart.html', context)
 

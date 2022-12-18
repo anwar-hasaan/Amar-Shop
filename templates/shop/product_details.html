@@ -19,12 +19,16 @@
             </div>
         </div>
         <div class="col-2">
-            <!-- <p>Home / T-shirt</p> -->
+            <p style="margin-bottom: 15px; font-weight: 500;"><a href="{% url 'shop:home' %}">Home</a> / <a href="{% url 'shop:products' %}">Products</a> / <span style="color: black; font-weight: 400;">{{object.title}}</span></p>
             <h2>{{object.title}}</h2>
             <h4 class="offer-price">Offer Price: &#2547; <strong>{{object.discount_price}}</strong></h4>
             <p>Regular Price: &#2547; <strike>{{object.regular_price}}</strike></p>
             <!-- <input type="number" value="1" disabled> -->
-            <a href="/add-to-cart/{{object.product_id}}/" class="btn">Add to cart</a>
+            {% if object.is_available %}
+                <a href="/add-to-cart/{{object.product_id}}/" class="btn">Add to cart</a>
+            {% else %}
+                <a href="#" class="btn" style="pointer-events: none;">Not Available</a>
+            {% endif %}
 
             <h3>Product Discription <i class="fa fa-indent" aria-hidden="true"></i></h3>
             <br>

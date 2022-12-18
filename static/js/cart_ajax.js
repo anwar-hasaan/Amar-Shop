@@ -83,3 +83,39 @@ $('.remove').click(function(){
         } 
     })
 })
+
+
+
+// select payment option
+function cod(){
+    let cod = document.getElementById('after-pay-cod');
+    cod.style.display = 'block';
+
+    let nagad = document.getElementById('after-pay-nagad');
+    nagad.style.display = 'none';
+
+    let bkash = document.getElementById('after-pay-bkash');
+    bkash.style.display = 'none';
+}
+// onclick bkash
+function bkash(){
+    let bkash = document.getElementById('after-pay-bkash');
+    bkash.style.display = 'block';
+
+    let nagad = document.getElementById('after-pay-nagad');
+    nagad.style.display = 'none';
+
+    let cod = document.getElementById('after-pay-cod');
+    cod.style.display = 'none';
+}
+// onclick nagad
+function nagad(){
+    let nagad = document.getElementById('after-pay-nagad');
+    nagad.style.display = 'block';
+
+    let bkash = document.getElementById('after-pay-bkash');
+    bkash.style.display = 'none';
+
+    let cod = document.getElementById('after-pay-cod');
+    cod.style.display = 'none';
+}

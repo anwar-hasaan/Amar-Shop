@@ -70,8 +70,14 @@ class OrderPlaced(models.Model):
     _customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField()
+    is_paid = models.BooleanField(default=False)
+    paid_amount = models.PositiveIntegerField(null=True, blank=True)
+    due_amount = models.PositiveIntegerField(null=True, blank=True)
     status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0])
     ordered_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def is_deliverd(self):
+        return True if self.status == 'deliverd' else False
     def __str__(self):
         return self.product.title

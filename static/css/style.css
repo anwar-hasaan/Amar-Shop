@@ -588,4 +588,9 @@ from .btn:focus{
         height: 25vh;
         font-size: 22px;
     }
+
+    #blank-td{
+        display: none;
+    }
+    
 }
