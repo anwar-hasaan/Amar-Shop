@@ -2,7 +2,7 @@ from django.contrib import admin
 from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['_user', 'customer_id', 'created_at', 'address']
+    list_display = ['_user', 'name', 'created_at', 'address']
     search_fields = ['_user']
     ordering = ['customer_id', '_user', 'created_at']
 

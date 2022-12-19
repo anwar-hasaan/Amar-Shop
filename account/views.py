@@ -4,19 +4,24 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from account import utails
-from account.forms import CustomerForm
 from shop.utails import DISTRICT_CHOICES, CITY_CHOICES
+from shop.models import Customer
 
 def account(request):
     request.session.set_test_cookie()
     return render(request, 'accounts/account.html')
 
+@login_required
 def profile(request):
-    cus_form = CustomerForm()
+    user = request.user
 
+    default_cus = Customer.objects.filter(_user=user).first()
+    all_cus = Customer.objects.filter(_user=user)
     context = {
         'districts': DISTRICT_CHOICES,
-        'cities': CITY_CHOICES
+        'cities': CITY_CHOICES,
+        'address': default_cus,
+        'all_cus': all_cus,
     }
     return render(request, 'accounts/profile.html', context)
 

@@ -71,3 +71,15 @@ function change_pass(){
   address.style.display = 'none';
   changePass.style.display = 'block';
 }
+
+// show_add_address_form toggle
+function show_add_address_form(){
+  let address_form = document.getElementById('add-address-form');
+
+  if(address_form.style.display == 'none'){
+    address_form.style.display = 'block';
+  }
+  else{
+    address_form.style.display = 'none';
+  }
+}

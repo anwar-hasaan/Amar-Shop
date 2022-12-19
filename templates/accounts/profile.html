@@ -13,33 +13,36 @@
                 <button class="button">Orders</button>
             </div>
 
+            <!--------profile address section--------->
             <div class="col-2 pro-col" id="profile-section">
                 <h2 class="title">Profile Info: </h2>
+                {% if address %}
                 <table>
                     <tr>
                         <td><strong>Name : </strong></td>
-                        <td>Anwar Hasan</td>
+                        <td>{{address.name}}</td>
                     </tr>
                     <tr>
                         <td><strong>Phone : </strong></td>
-                        <td>01910605131</td>
+                        <td>{{address.phone}}</td>
                     </tr>
                     <tr>
                         <td><strong>District : </strong></td>
-                        <td>Dhaka</td>
+                        <td>{{address.district}}</td>
                     </tr>
                     <tr>
                         <td><strong>City : </strong></td>
-                        <td>BAF BBD</td>
+                        <td>{{address.city}}</td>
                     </tr>
                     <tr>
                         <td><strong>Address : </strong></td>
-                        <td>223 Manikdi Dhaka Cantt</td>
+                        <td>{{address.address}}</td>
                     </tr>
                 </table>
+                {% endif %}
             </div>
 
-            <!-- -----change password ----- -->
+            <!-- -----change password section ----- -->
             <div class="col-2 pro-col" id="change-pass-section" style="display: none;">
                 <h2 class="title">Change Password: </h2>
                 <form action="" method="POST">
@@ -56,10 +59,30 @@
                 </form>
             </div>
             
-            <!-- -----add address ----- -->
+            <!-- -----add address section ----- -->
             <div class="col-2 pro-col" id="address-section" style="display: none;">
                 <h2 class="title">Shipping Address Info: </h2>
-                <form action="" method="POST">
+
+                <div class="small-container">
+                    <div class="row">
+                        {% if all_cus %}
+                        {% for customer in all_cus %}
+                        <div class="col-4" style="text-align: left; flex-basis: 49%;">
+                            <h3 class="">{% if forloop.counter == 1 %}Default Address {% else %} Address : {{ forloop.counter }} {% endif %}</h3>
+                            <p>Name :     <span>{{customer.name}}</span></p>
+                            <p>District : <span>{{customer.district}}</span></p>
+                            <p>City :     <span>{{customer.city}}</span></p>
+                            <p>Adress:    <span>{{customer.address}}</span></p>
+                            <p>Phone :    <span>{{customer.phone}}</span></p>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <button class="button" onclick="show_add_address_form()">Add More Address</button>
+                </div>
+
+                <!------add address form------>
+                <form action="" method="POST" id="add-address-form" style="display: none;">
                     <label for="name">Name: </label>
                     <input type="text" id="name"  name="name" placeholder="name *" required>
 

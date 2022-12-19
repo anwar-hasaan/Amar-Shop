@@ -13,6 +13,9 @@ class Customer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     address = models.TextField()
 
+    class Meta:
+        ordering = ['created_at']
+        
     def save(self,*args,**kwargs):
         if not self.customer_id:
             self.customer_id = BaseUserManager().make_random_password(6)
@@ -22,6 +25,7 @@ class Customer(models.Model):
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to=utails.get_upload_dir)
+    
     @property
     def get_url(self):
         return f"/media/{self.image}"
@@ -42,14 +46,23 @@ class Product(models.Model):
     discount_price = models.PositiveIntegerField()
     rating = models.FloatField(default=5.0, null=True, blank=True)
     added_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['added_at']
+
+    @property
     def discount(self):
         return self.regular_price - self.discount_price
+    
+    @property
     def is_available(self):
         return True if self.quantity >= 1 else False
+    
     def save(self,*args,**kwargs):
         if not self.product_id:
             self.product_id = BaseUserManager().make_random_password(6)
         return super().save(*args, **kwargs)
+    
     def __str__(self):
         return self.title
 
@@ -59,9 +72,13 @@ class Cart(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['added_at']
+
     @property
     def get_sub_total(self):
         return self.quantity * self.product.discount_price
+    
     def __str__(self):
         return self.product.title
 
@@ -75,6 +92,9 @@ class OrderPlaced(models.Model):
     due_amount = models.PositiveIntegerField(null=True, blank=True)
     status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0])
     ordered_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['ordered_at']
 
     @property
     def is_deliverd(self):
