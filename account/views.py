@@ -4,9 +4,21 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from account import utails
+from account.forms import CustomerForm
+from shop.utails import DISTRICT_CHOICES, CITY_CHOICES
 
-def account(request):    
+def account(request):
+    request.session.set_test_cookie()
     return render(request, 'accounts/account.html')
+
+def profile(request):
+    cus_form = CustomerForm()
+
+    context = {
+        'districts': DISTRICT_CHOICES,
+        'cities': CITY_CHOICES
+    }
+    return render(request, 'accounts/profile.html', context)
 
 def login_view(request):
     if request.method == 'POST':

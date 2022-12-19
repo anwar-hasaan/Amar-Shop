@@ -39,3 +39,35 @@ btn.on('click', function(e) {
   e.preventDefault();
   $('html, body').animate({scrollTop:0}, '300');
 });
+
+
+// profile page toggle buttons (profile, address, order)
+function profile(){
+  let profile = document.getElementById('profile-section');
+  let address = document.getElementById('address-section');
+  let changePass = document.getElementById('change-pass-section');
+
+  changePass.style.display = 'none';
+  address.style.display = 'none';
+  profile.style.display = 'block';
+}
+
+function address(){
+  let profile = document.getElementById('profile-section');
+  let address = document.getElementById('address-section');
+  let changePass = document.getElementById('change-pass-section');
+
+  changePass.style.display = 'none';
+  profile.style.display = 'none';
+  address.style.display = 'block';
+}
+
+function change_pass(){
+  let changePass = document.getElementById('change-pass-section');
+  let profile = document.getElementById('profile-section');
+  let address = document.getElementById('address-section');
+
+  profile.style.display = 'none';
+  address.style.display = 'none';
+  changePass.style.display = 'block';
+}

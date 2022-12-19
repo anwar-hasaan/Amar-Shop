@@ -3,9 +3,11 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 def set_login_session_cookies(request, username, password):
-    request.session['username'] = username
-    request.session['password'] = password
-    print('session data created')
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+        request.session['username'] = username
+        request.session['password'] = password
+        return request
     return request
 
 def get_login_session_cookies(request):

@@ -3,6 +3,7 @@ def get_upload_dir(instance, filename):
 
 DISTRICT_CHOICES = (
     ('dhaka', 'Dhaka'),
+    ('gazipur', 'Gazipur'),
 )
 
 CITY_CHOICES = (

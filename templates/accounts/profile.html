@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock title %}
+{% block content %}
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 pro-col">
+                <button class="button" onclick="profile()">Profile</button>
+                <button class="button" onclick="change_pass()">Change Pasword</button>
+                <button class="button" onclick="address()">Address</button>
+                <button class="button">Orders</button>
+            </div>
+
+            <div class="col-2 pro-col" id="profile-section">
+                <h2 class="title">Profile Info: </h2>
+                <table>
+                    <tr>
+                        <td><strong>Name : </strong></td>
+                        <td>Anwar Hasan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone : </strong></td>
+                        <td>01910605131</td>
+                    </tr>
+                    <tr>
+                        <td><strong>District : </strong></td>
+                        <td>Dhaka</td>
+                    </tr>
+                    <tr>
+                        <td><strong>City : </strong></td>
+                        <td>BAF BBD</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Address : </strong></td>
+                        <td>223 Manikdi Dhaka Cantt</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- -----change password ----- -->
+            <div class="col-2 pro-col" id="change-pass-section" style="display: none;">
+                <h2 class="title">Change Password: </h2>
+                <form action="" method="POST">
+                    <label for="password">Previous Password: </label>
+                    <input type="password" id="password"  name="pre-pass" placeholder="Previous Password *" required>
+
+                    <label for="new">New Password: </label>
+                    <input type="password" id="new" name="new-pass" placeholder="New Password" required>
+
+                    <label for="new2">Confirm New Password: </label>
+                    <input type="password" id="new2" name="new-pass2" placeholder="Confirm New Password" required>
+
+                    <input type="submit" class="btn">
+                </form>
+            </div>
+            
+            <!-- -----add address ----- -->
+            <div class="col-2 pro-col" id="address-section" style="display: none;">
+                <h2 class="title">Shipping Address Info: </h2>
+                <form action="" method="POST">
+                    <label for="name">Name: </label>
+                    <input type="text" id="name"  name="name" placeholder="name *" required>
+
+                    <label for="phone">Phone: </label>
+                    <input type="number" name="phone" placeholder="phone number" required>
+                    
+                    <label for="district">District</label>
+                    <select name="district" id="district">
+                        {% if districts %}
+                        {% for dis_val, district in districts %}
+                          <option value="{{dis_val}}">{{district}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+
+                    <label for="city">City</label>
+                    <select name="city" id="city">
+                        {% if cities %}
+                        {% for city_val, city in cities %}
+                          <option value="{{city_val}}">{{city}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+
+                    <label for="address">Address: </label>
+                    <textarea name="address" id="address"></textarea>
+
+                    <input type="submit" class="btn">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

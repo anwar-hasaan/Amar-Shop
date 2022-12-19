@@ -5,7 +5,7 @@ from shop import utails
 
 class Customer(models.Model):
     customer_id = models.CharField(max_length=20, primary_key=True, unique=True, blank=True)
-    _user = models.ForeignKey(User, on_delete=models.CASCADE)
+    _user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=15)
     district = models.CharField(max_length=20, choices=utails.DISTRICT_CHOICES, null=True, blank=True)
