@@ -13,7 +13,7 @@
                 <button class="button">Orders</button>
             </div>
 
-            <!--------profile address section--------->
+            {% comment %} <!--------profile address section---------> {% endcomment %}
             <div class="col-2 pro-col" id="profile-section">
                 <h2 class="title">Profile Info: </h2>
                 {% if address %}
@@ -45,7 +45,8 @@
             <!-- -----change password section ----- -->
             <div class="col-2 pro-col" id="change-pass-section" style="display: none;">
                 <h2 class="title">Change Password: </h2>
-                <form action="" method="POST">
+                <form action="{% url 'account:change-password' %}" method="POST">
+                    {% csrf_token %}
                     <label for="password">Previous Password: </label>
                     <input type="password" id="password"  name="pre-pass" placeholder="Previous Password *" required>
 

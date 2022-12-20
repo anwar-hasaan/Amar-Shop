@@ -72,6 +72,29 @@ def register_view(request):
             messages.error(request, 'registration successful')              
     return redirect('/account')
 
+@login_required
+def change_password(request):
+    user = request.user
+    if request.method == 'POST':
+        pre_pass = request.POST.get('pre-pass')
+        new_pass = request.POST.get('new-pass')
+        new_pass2 = request.POST.get('new-pass2')
+
+        user = User.objects.get(pk=user.pk)
+        if user and user.check_password(pre_pass):
+            if new_pass == new_pass2:
+                if len(new_pass) >= 6:
+                    user.set_password(new_pass)
+                    user.save()
+                    messages.success(request, 'New Password set successfuly!')
+                    return redirect('/account') # send to login page
+                messages.error(request, 'New password must be atleast 6 charecters!')
+                return redirect('/account/profile')
+            messages.error(request, 'New password and confirm new password must be same')
+            return redirect('/account/profile')
+        messages.error(request, 'Wrong previous password!')
+        return redirect('/account/profile')
+    return redirect('/account/profile')
 
 @login_required
 def logout_view(request):
