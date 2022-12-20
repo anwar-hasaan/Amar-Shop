@@ -21,9 +21,14 @@ class OrderPlacedAdmin(admin.ModelAdmin):
     search_fields = ['_user', 'product', 'status']
     ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['method', 'amount', 'paid', 'due']
+    search_fields = ['amount', 'paid', 'due']
+    ordering = ['paid_at']
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(OrderPlaced, OrderPlacedAdmin)
-admin.site.register(Payment)
+admin.site.register(Payment, PaymentAdmin)

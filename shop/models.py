@@ -108,20 +108,15 @@ class OrderPlaced(models.Model):
         return self.product.title
 
 class Payment(models.Model):
-    pay_id = models.CharField(max_length=20, primary_key=True, unique=True, blank=True)
     orders = models.ManyToManyField(OrderPlaced)
     method = models.CharField(max_length=10, choices=utails.PAY_CHOICES, null=True, blank=True)
     amount = models.PositiveIntegerField(null=True, blank=True)
     paid = models.PositiveIntegerField(null=True, blank=True)
     due = models.PositiveIntegerField(null=True, blank=True)
-
-    def save(self,*args,**kwargs):
-        if not self.pay_id:
-            self.pay_id = BaseUserManager().make_random_password(6)
-        return super().save(*args, **kwargs)
+    paid_at = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        ordering = ['paid_at']
+
     def __str__(self):
         return self.method
-
-class ProductReview(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)

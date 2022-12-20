@@ -204,7 +204,8 @@ def payment(request):
                     
                     order.is_paid = True
                     order.save()
-                payment.amount = total_cost + SHIPING_CHARGE
+                total_cost = total_cost + SHIPING_CHARGE
+                payment.amount = total_cost
                 payment.due = total_cost
                 payment.paid = 0
                 payment.save()
