@@ -5,7 +5,6 @@
 {% block content %}
 <!---------cart details------------>
 <div class="small-container cart-page" id="cart-main-container">
-    {% if CART %}
     {% if carts %}
     <table>
         <thead id="temp">
@@ -58,10 +57,7 @@
             <tr>
                 <td id="blank-td"></td>
                 <td>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn" name="checkout">Checkout</button>
-                    </form>
+                    <a  class="btn" id="checkout" onclick="checkout()">Checkout</a>
                 </td>
             </tr>
         </table>
@@ -75,85 +71,31 @@
         <a href="{% url 'shop:products' %}" class="btn">Continue Shoping</a>
     </div>
     {% endif %}
-    {% endif %}
 </div>
 
 
 <!-----address-------->
-<div class="small-container">
-    {% if CHECKOUT %}
+<div class="small-container" id="select-address" style="display: none;">
     <div class="row">
         {% if customers %}
-        {% for customer in customers %}
-        <div class="col-4" style="text-align: left; flex-basis: 49%;">
-            <input type="radio" name="customer-id" value="{{customer.customer_id}}" style="margin: -20px 0px 20px 0px;">
-            <label for="">select</label>
-            <h3 class="">Address: {{ forloop.counter }}</h3>
-            <p>Name :     <span>{{customer.name}}</span></p>
-            <p>District : <span>{{customer.district}}</span></p>
-            <p>City :     <span>{{customer.city}}</span></p>
-            <p>Adress:    <span>{{customer.address}}</span></p>
-            <p>Phone :    <span>{{customer.phone}}</span></p>
-        </div>
-        {% endfor %}
-        {% endif %}
-        <form action="" method="POST">
+        <form action="{% url 'shop:checkout' %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn" name="address" onclick="display_payment_section()">Next</button>
+            {% for customer in customers %}
+            <div class="col-4" style="text-align: left; flex-basis: 49%;">
+                <input type="radio" name="customer-id" value="{{customer.customer_id}}" style="margin: -20px 0px 20px 0px;" {% if forloop.counter == 1 %}checked{% endif %}>
+                <label for="">select</label>
+                <h3 class="">{% if forloop.counter == 1 %}Default Address {% else %} Address: {{ forloop.counter }}{% endif %} </h3>
+                <p>Name :     <span>{{customer.name}}</span></p>
+                <p>District : <span>{{customer.district}}</span></p>
+                <p>City :     <span>{{customer.city}}</span></p>
+                <p>Adress:    <span>{{customer.address}}</span></p>
+                <p>Phone :    <span>{{customer.phone}}</span></p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn">Continue</button>
         </form>
-        <div class="col-4" style="text-align: left; flex-basis: 49%;">
-            <a href="#" class="btn">Add another address></a>
-        </div>
+        {% endif %}
     </div>
-    {% endif %}
-
-    {% comment %} <!-----payment-------> {% endcomment %}
-    {% if ADDRESS %}
-    <div class="row">
-        <div class="col-4" style="text-align: left; flex-basis: 98%;">
-            <h3 class="" style="margin-bottom: 15px;">Select payment method: </h3>
-            
-            <div>
-                <input type="radio" id="cod" name="payment" value="cod" onchange="cod()" checked>
-                <label for="cod">Cash On Delivery</label>
-                <div id="after-pay-cod" style="margin-left: 15px;">
-                    <p>You can pay when you get the product at your doorstep. <br>please keep ready (&#2547;<strong>{{total_cost}}</strong>)</p>
-                    <a href="#" class="btn">Order confirm</a>
-                </div>
-            </div>
-            <hr style="margin-bottom: 12px; margin-top: 5px;">
-            <div>
-                <input type="radio" id="bkash" name="payment" value="bkash" onchange="bkash()">
-                <label for="bkash">Bkash (personal)</label>
-                <div id="after-pay-bkash" style="margin-left: 15px; display: none;">
-                    <p>Send money to this bkash number <br>(<strong> 01910-605131 </strong>) and then enter the transection id and your bkash number below.
-                    <br>then your order will be accepted.</p>
-                    
-                    <form action="" style="width: 90%;">
-                        <input type="text" placeholder="phone number">
-                        <input type="text" placeholder="transection id">
-                        <input type="submit">
-                    </form>
-                </div>
-            </div>
-            <hr style="margin-bottom: 12px; margin-top: 5px;">
-            <div>
-                <input type="radio" id="nagad" name="payment" value="nagad" onchange="nagad()">
-                <label for="nagad">Nagad (personal)</label>
-                <div id="after-pay-nagad" style="margin-left: 15px; display: none;">
-                    <p>Send money to this Nagad number <br>(<strong> 01910-605131 </strong>) and then enter the transection id and your bkash number below.
-                    <br>then your order will be accepted.</p>
-                    
-                    <form action="" style="width: 90%;">
-                        <input type="text" placeholder="phone number">
-                        <input type="text" placeholder="transection id">
-                        <input type="submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
 

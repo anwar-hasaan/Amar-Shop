@@ -546,7 +546,13 @@ from .btn:focus{
     border: none;
     border-radius: 3px;
     margin-bottom: 2px;
+    cursor: pointer;
  }
+.button:hover{
+    width: 152px;
+    background-color: #8a8a8a;
+    color: black;
+}
 
 .pro-col{
     margin: 30px 5px;

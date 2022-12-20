@@ -87,10 +87,9 @@ class OrderPlaced(models.Model):
     _customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField()
+    total_amount = models.PositiveIntegerField(null=True, blank=True)
     is_paid = models.BooleanField(default=False)
-    paid_amount = models.PositiveIntegerField(null=True, blank=True)
-    due_amount = models.PositiveIntegerField(null=True, blank=True)
-    status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0])
+    status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0][0])
     ordered_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -99,5 +98,30 @@ class OrderPlaced(models.Model):
     @property
     def is_deliverd(self):
         return True if self.status == 'deliverd' else False
+
+    def save(self,*args,**kwargs):
+        if not self.total_amount:
+            self.total_amount = self.quantity * self.product.discount_price
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.product.title
+
+class Payment(models.Model):
+    pay_id = models.CharField(max_length=20, primary_key=True, unique=True, blank=True)
+    orders = models.ManyToManyField(OrderPlaced)
+    method = models.CharField(max_length=10, choices=utails.PAY_CHOICES, null=True, blank=True)
+    amount = models.PositiveIntegerField(null=True, blank=True)
+    paid = models.PositiveIntegerField(null=True, blank=True)
+    due = models.PositiveIntegerField(null=True, blank=True)
+
+    def save(self,*args,**kwargs):
+        if not self.pay_id:
+            self.pay_id = BaseUserManager().make_random_password(6)
+        return super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.method
+
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)

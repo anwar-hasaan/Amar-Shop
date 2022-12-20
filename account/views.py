@@ -96,6 +96,24 @@ def change_password(request):
         return redirect('/account/profile')
     return redirect('/account/profile')
 
+
+@login_required
+def add_customer_address(request):
+    user = request.user
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        district = request.POST.get('district')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+
+        # save address data to db
+        cus = Customer.objects.create(_user=user, name=name, phone=phone, district=district, city=city, address=address)
+        cus.save()
+        messages.success(request, 'New address added successfuly!')
+        return redirect('/account/profile')
+    return redirect('/account/profile')
+
 @login_required
 def logout_view(request):
     request.session.clear_expired()

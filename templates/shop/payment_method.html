@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Select Payment Method | Amar Shop{% endblock title %}
+
+{% block content %}
+<div class="small-container">
+    <div class="row">
+        
+    </div>
+</div>
+
+
+<div class="small-container" style="margin-top: 40px;">
+    <!-- ------cost summary section----------- -->
+    <div class="row">
+        <div class="col-4" style="text-align: left; flex-basis: 98%;">
+            <div class="" id="">
+                <h2 class="title">Payment Summary : </h2>
+                <table>
+                    <tr>
+                        <td>Total Products (pcs) :</td>
+                        <td>{{total_quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Price : </td>
+                        <td>&#2547; {{reqular_price}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Discount (you save) : </td>
+                        <td>&#2547; {{total_discount}} </td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal : </td>
+                        <td>&#2547; {{sub_total_cost}}</td>
+                    </tr>
+                    <tr>
+                        <td>Shiping Charge : </td>
+                        <td>&#2547; {{shiping_charge}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total payable : </td>
+                        <td>&#2547; <strong> {{total_cost}}</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------payment method select section----------- -->
+    <div class="row">
+        <div class="col-4" style="text-align: left; flex-basis: 98%;">
+            <h3 class="" style="margin-bottom: 15px;">Select payment method: </h3>
+            
+            <div>
+                <input type="radio" id="cod" name="payment" value="cod" onchange="cod()" checked>
+                <label for="cod">Cash On Delivery</label>
+                <div id="after-pay-cod" style="margin-left: 15px;">
+                    <p>You can pay when you get the product at your doorstep. <br>
+                        please keep ready (&#2547;<strong>{{total_cost}}</strong>)</p>
+                    <form action="{% url 'shop:payment' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="button" type="submit" style="margin: 10px 0;" name="cod">Confirm</button>
+                    </form>
+                </div>
+            </div>
+            <hr style="margin-bottom: 12px; margin-top: 5px;">
+            
+            <div>
+                <input type="radio" id="bkash" name="payment" value="bkash" onchange="bkash()">
+                <label for="bkash">Bkash (personal)</label>
+                <div id="after-pay-bkash" style="margin-left: 15px; display: none;">
+                    <p>Please, Send (&#2547;<strong>{{total_cost}}</strong>) tk to this bkash number <br>(<strong> 01910-605131 </strong>) and then enter the transection id and your bkash number below.
+                    <br>then your order will be accepted.</p>
+                    
+                    <form action="{% url 'shop:payment' %}" method="POST" style="width: 90%;">
+                        {% csrf_token %}
+                        <input type="text" name="phone" placeholder="phone number" required>
+                        <input type="text" name="tr-id" placeholder="transection id" required>
+                        <button class="button" type="submit" name="bkash" style="margin: 10px 0;">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <hr style="margin-bottom: 12px; margin-top: 5px;">
+            
+            <div>
+                <input type="radio" id="nagad" name="payment" value="nagad" onchange="nagad()">
+                <label for="nagad">Nagad (personal)</label>
+                <div id="after-pay-nagad" style="margin-left: 15px; display: none;">
+                    <p>Send (&#2547;<strong>{{total_cost}}</strong>) tk to this Nagad number <br>(<strong> 01910-605131 </strong>) and then enter the transection id and your bkash number below.
+                    <br>then your order will be accepted.</p>
+                    
+                    <form action="{% url 'shop:payment' %}" method="POST" style="width: 90%;">
+                        {% csrf_token %}
+                        <input type="text" name="phone" placeholder="phone number" required>
+                        <input type="text" name="tr-id" placeholder="transection id" required>
+                        <button class="button" type="submit" name="nagad" style="margin: 10px 0;">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

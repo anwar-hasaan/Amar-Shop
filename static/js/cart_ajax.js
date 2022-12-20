@@ -84,7 +84,17 @@ $('.remove').click(function(){
     })
 })
 
+// checkout btn click event 
+function checkout(){
+    let select_address = document.getElementById('select-address');
 
+    if(select_address.style.display == 'none'){
+        select_address.style.display = 'block';
+      }
+      else{
+        select_address.style.display = 'none';
+      }
+}
 
 // select payment option
 function cod(){

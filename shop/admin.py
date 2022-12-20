@@ -1,5 +1,5 @@
 from django.contrib import admin
-from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced
+from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced, Payment
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['_user', 'name', 'created_at', 'address']
@@ -17,7 +17,7 @@ class CartAdmin(admin.ModelAdmin):
     ordering = ['_user', 'quantity', 'added_at']
 
 class OrderPlacedAdmin(admin.ModelAdmin):
-    list_display = ['product','_customer', '_user',  'quantity', 'status', 'ordered_at']
+    list_display = ['product','_customer', '_user',  'quantity', 'is_paid', 'status', 'ordered_at']
     search_fields = ['_user', 'product', 'status']
     ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
@@ -26,3 +26,4 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(OrderPlaced, OrderPlacedAdmin)
+admin.site.register(Payment)

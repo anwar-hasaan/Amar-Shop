@@ -60,3 +60,10 @@ ORDER_STATUS = (
     ('on_the_way', 'On the way'),
     ('deliverd', 'Delivered')
 )
+
+
+PAY_CHOICES = (
+    ('cod', 'Cash on delivery'),
+    ('bkash', 'Bkash'),
+    ('nagad', 'Nagad'),
+)

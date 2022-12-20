@@ -5,7 +5,7 @@ let menu_btn = document.getElementById('menu-btn');
 menu_items.style.maxHeight = "0px";
 menu_btn.addEventListener('click', function(){
     if(menu_items.style.maxHeight == "0px"){
-        menu_items.style.maxHeight = "200px"
+        menu_items.style.maxHeight = "350px"
     }
     else{
         menu_items.style.maxHeight = "0px"
