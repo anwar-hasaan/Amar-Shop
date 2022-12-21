@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from account.utails import login_using_session
-
 SHIPING_CHARGE = 50
 
 def home(request):
@@ -196,8 +195,8 @@ def payment(request):
     if request.method == 'POST':
         placed_order = OrderPlaced.objects.filter(_user=user, is_paid=False)
         if 'cod' in request.POST:
-            payment = Payment.objects.create(method='cod')
             if placed_order:
+                payment = Payment.objects.create(_user=user, method='cod', _customer=placed_order.first()._customer)
                 for order in placed_order:
                     total_cost += order.total_amount
                     payment.orders.add(order)

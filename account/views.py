@@ -43,7 +43,7 @@ def login_view(request):
             if next_page != 'None':
                 return redirect(next_page)
             else:
-                return redirect('/cart')
+                return redirect('/account/profile')
         messages.error(request, 'incorrect phone or password')
         return redirect('/account')
 

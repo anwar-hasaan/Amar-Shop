@@ -43,9 +43,9 @@
         {% for product in featured %}
         <div class="col-4">
             {% with product.image.all|first as image %}
-                    <img src="{{image.get_url}}" />
+                <a href="/product/{{product.product_id}}"><img src="{{image.get_url}}"/></a>
             {% endwith %}
-            <h4>{{product.title}}</h4>
+            <h4><a href="/product/{{product.product_id}}">{{product.title}}</a></h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -83,7 +83,7 @@
 </div>
 
 
-{% comment %} <!---------offer----------> {% endcomment %}
+<!---------offer---------->
 {% if exclusive %}
 <div class="offer">
     <div class="small-container">
