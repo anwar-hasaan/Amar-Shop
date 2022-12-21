@@ -187,6 +187,37 @@ def checkout(request):
     return redirect('/cart')
 
 
+#helper function for making payment with (bkash and nagad)
+def make_payment(request, pay_method):
+    user = request.user
+    total_cost = 0
+
+    phone = request.POST.get('phone')
+    amount = request.POST.get('amount')
+    tr_id = request.POST.get('tr-id')
+
+    placed_order = OrderPlaced.objects.filter(_user=user, is_paid=False)
+    if placed_order:
+        payment = Payment.objects.create(_user=user, method=pay_method, _customer=placed_order.first()._customer)
+        for order in placed_order:
+            total_cost += order.total_amount
+            payment.orders.add(order)
+            
+            order.is_paid = True
+            order.save()
+        total_cost = total_cost + SHIPING_CHARGE
+
+        payment.amount = total_cost
+        payment.paid = int(amount) # its coming from frontend as string
+        payment.phone = phone
+        payment.tr_id = tr_id
+        payment.save()
+        messages.success(request, 'Order complete, we are reviewing your payment.')
+        return redirect('/account/profile')
+    
+    messages.error(request, 'No order Placed yet!')
+    return redirect('/account/profile')
+
 @login_required
 def payment(request):
     user = request.user
@@ -204,19 +235,21 @@ def payment(request):
                     order.is_paid = True
                     order.save()
                 total_cost = total_cost + SHIPING_CHARGE
+
                 payment.amount = total_cost
-                payment.due = total_cost
                 payment.paid = 0
                 payment.save()
                 messages.success(request, 'Order confirmed, you can pay at home.')
                 return redirect('/account/profile')
             
-            messages.error(request, 'No products on Placed order!')
+            messages.error(request, 'No order Placed yet!')
             return redirect('/account/profile')
             
         elif 'bkash' in request.POST:
-            pass
-        elif 'nagad' in request.POST:
-            pass
+            make_payment(request=request, pay_method='bkash')
 
-    return render(request, 'shop/payment_method.html')
+        elif 'nagad' in request.POST:
+            make_payment(request=request, pay_method='nagad')
+
+    # return render(request, 'shop/payment_method.html', {})
+    return redirect('/account/profile')

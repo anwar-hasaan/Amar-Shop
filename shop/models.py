@@ -112,15 +112,20 @@ class Payment(models.Model):
     _customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     orders = models.ManyToManyField(OrderPlaced)
     method = models.CharField(max_length=10, choices=utails.PAY_CHOICES, null=True, blank=True)
-    amount = models.PositiveIntegerField(null=True, blank=True)
-    paid = models.PositiveIntegerField(null=True, blank=True)
-    due = models.PositiveIntegerField(null=True, blank=True)
+    amount = models.PositiveIntegerField(default=0 , null=True, blank=True)
+    paid = models.PositiveIntegerField(default=0, null=True, blank=True)
+    due = models.PositiveIntegerField(default=0, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     tr_id = models.CharField(max_length=50, null=True, blank=True)
+    approved = models.BooleanField(default=False, null=True)
     paid_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         ordering = ['paid_at']
+
+    def save(self,*args,**kwargs):
+        self.due = self.amount - self.paid
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.method

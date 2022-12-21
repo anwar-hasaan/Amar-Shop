@@ -22,7 +22,7 @@ class OrderPlacedAdmin(admin.ModelAdmin):
     ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['id', '_user', '_customer', 'method', 'amount', 'paid', 'due']
+    list_display = ['id', '_user', '_customer', 'method', 'amount', 'paid', 'due', 'approved']
     search_fields = ['amount', 'paid', 'due']
     ordering = ['paid_at']
 

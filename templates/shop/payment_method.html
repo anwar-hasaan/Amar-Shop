@@ -74,7 +74,8 @@
                     
                     <form action="{% url 'shop:payment' %}" method="POST" style="width: 90%;">
                         {% csrf_token %}
-                        <input type="text" name="phone" placeholder="phone number" required>
+                        <input type="number" name="phone" placeholder="phone number" required>
+                        <input type="number" name="amount" placeholder="Amount you send" required>
                         <input type="text" name="tr-id" placeholder="transection id" required>
                         <button class="button" type="submit" name="bkash" style="margin: 10px 0;">Submit</button>
                     </form>
@@ -91,7 +92,8 @@
                     
                     <form action="{% url 'shop:payment' %}" method="POST" style="width: 90%;">
                         {% csrf_token %}
-                        <input type="text" name="phone" placeholder="phone number" required>
+                        <input type="number" name="phone" placeholder="phone number" required>
+                        <input type="number" name="amount" placeholder="Amount you send" required>
                         <input type="text" name="tr-id" placeholder="transection id" required>
                         <button class="button" type="submit" name="nagad" style="margin: 10px 0;">Submit</button>
                     </form>
