@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced, Payment
 
 from django.urls import reverse
@@ -11,9 +12,20 @@ class CustomerAdmin(admin.ModelAdmin):
     ordering = ['customer_id', '_user', 'created_at']
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'product_id', 'status', 'quantity', 'discount_price', 'rating']
+    list_display = ['title', 'show_prod_images', 'status', 'quantity', 'discount_price', 'rating']
     search_fields = ['title', 'status']
     ordering = ['product_id', 'status', 'discount_price', 'rating']
+
+    def show_prod_images(self, obj):
+        all_images = [image for image in obj.image.all()] 
+        links = []
+        for count, image in enumerate(all_images, start=1):
+            links.append(
+                mark_safe('<a target="_blank" href="{}">{}</a>'.format(image.get_url, f'img {count}'))
+            )
+            
+        return format_html(', '.join(links))
+    show_prod_images.short_description = 'images'
 
 class CartAdmin(admin.ModelAdmin):
     list_display = ['product', '_user', 'quantity', 'added_at']
@@ -21,7 +33,7 @@ class CartAdmin(admin.ModelAdmin):
     ordering = ['_user', 'quantity', 'added_at']
 
 class OrderPlacedAdmin(admin.ModelAdmin):
-    list_display = ['product', 'product_details', '_customer', '_user',  'quantity', 'is_paid', 'status', 'ordered_at']
+    list_display = ['product', 'product_details', 'show_prod_images', '_customer', '_user',  'quantity', 'is_paid', 'status', 'ordered_at']
     search_fields = ['_user', 'product', 'status']
     ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
@@ -30,10 +42,20 @@ class OrderPlacedAdmin(admin.ModelAdmin):
             reverse("admin:shop_product_change", args=(obj.product.pk,)),
             'see'
         ))
+    def show_prod_images(self, obj):
+        all_images = [image for image in obj.product.image.all()] # p is OrderPlaced object
+        links = []
+        for count, image in enumerate(all_images, start=1):
+            links.append(
+                mark_safe('<a target="_blank" href="{}">{}</a>'.format(image.get_url, f'img {count}'))
+            )
+            
+        return format_html(', '.join(links))
+    show_prod_images.short_description = 'images'
     product_details.short_description = 'product'
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'show_user', 'show_customer', 'method', 'amount', 'paid', 'due', 'approved', 'show_orders']
+    list_display = ['id', 'show_user', 'show_customer', 'method', 'amount', 'paid', 'due', 'approved', 'show_orders', 'all_orders_with_this_pay']
     search_fields = ['amount', 'paid', 'due']
     ordering = ['paid_at']
 
@@ -56,9 +78,19 @@ class PaymentAdmin(admin.ModelAdmin):
                 product))
             )
         return format_html(' and '.join(links))
+
+    # show all orderplaced obj with this payment obj
+    def all_orders_with_this_pay(self, obj):
+        url = (
+            reverse("admin:shop_orderplaced_changelist")
+            + "?pk__in=" 
+            + ",".join([str(order.pk) for order in obj.orders.all()])
+        )
+        return format_html('<a href="{}">{}</a>', url, 'orders')
     show_user.short_description = 'User'
     show_customer.short_description = 'Customer'
     show_orders.short_description = 'Products'
+    all_orders_with_this_pay.short_description = 'Orders'
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
@@ -66,3 +98,4 @@ admin.site.register(ProductImage)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(OrderPlaced, OrderPlacedAdmin)
 admin.site.register(Payment, PaymentAdmin)
+admin.site.unregister(Group)
