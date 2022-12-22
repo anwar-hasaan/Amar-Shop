@@ -2,8 +2,8 @@ from pathlib import Path
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-hu6_p#%a*7l4gc(ri633e@cqg&dlqpm8=#9o)aw5wny33seeh6'
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG') == '1'
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -55,6 +55,18 @@ DATABASES = {
     }
 }
 
+# DATABASES={
+#    'default':{
+#       'ENGINE': os.environ.get('DB_ENGINE'),
+#       'NAME': os.environ.get('DB_NAME'),
+#       'USER': os.environ.get('DB_USER'),
+#       'PASSWORD': os.environ.get('DB_PASSWORD'),
+#       'HOST': os.environ.get('DB_HOST'),
+#       'PORT': os.environ.get('DB_PORT'),
+#    }
+# }
+
+
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,8 +95,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if DEBUG:
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
