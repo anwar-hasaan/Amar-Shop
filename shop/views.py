@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 from account.utails import login_using_session
 SHIPING_CHARGE = 50
-def DELIVERY_DATE():
+def DELIVERY_DATE(): # return today + 4 days to delivery
     return datetime.today() + timedelta(days=4)
 
 def home(request):

@@ -147,13 +147,15 @@ class Payment(models.Model):
                             order.status =  utails.ORDER_STATUS[1][0] # ORDER_STATUS[1][0] = 'accepted'
                             order.save()
                     else:
-                        print('placed order empty')
+                        pass
+                        # print('placed order empty')
                 else:
-                    print('user or cus not valid')
+                    pass
+                    # print('user or cus not valid')
             else:
-                print(':: self not appreved')
+                pass
+                # print('Self not approved')
         except Exception as e:
-            print(e)
             raise Exception(e)
         return super().save(*args, **kwargs)
 
