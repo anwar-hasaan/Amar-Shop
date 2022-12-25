@@ -89,7 +89,9 @@ class OrderPlaced(models.Model):
     quantity = models.PositiveIntegerField()
     total_amount = models.PositiveIntegerField(null=True, blank=True)
     is_paid = models.BooleanField(default=False)
+    pay_method = models.CharField(max_length=10, choices=utails.PAY_CHOICES, null=True, blank=True)
     status = models.CharField(max_length=10, choices=utails.ORDER_STATUS, default=utails.ORDER_STATUS[0][0])
+    will_arrive_on = models.DateField(null=True, blank=True)
     ordered_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -125,6 +127,34 @@ class Payment(models.Model):
 
     def save(self,*args,**kwargs):
         self.due = self.amount - self.paid
+
+        # update all Orderplaced model status to accepted
+        # which is approved=true in Payment and is_paid=True in OrderPlaced
+        try:
+            if self.approved:
+                user = self._user
+                cus = self._customer
+                pay_meth = self.method
+                
+                if user and cus:
+                    prods_ids = [prod.product_id for prod in self.orders.all()]
+                    order_placed_and_paid = OrderPlaced.objects.filter(
+                        _user=user, _customer=cus, product__product_id__in=prods_ids,
+                        pay_method=pay_meth, is_paid=True, status=utails.ORDER_STATUS[0][0] ) # ORDER_STATUS[0][0] = 'pending'
+
+                    if order_placed_and_paid:
+                        for order in order_placed_and_paid:
+                            order.status =  utails.ORDER_STATUS[1][0] # ORDER_STATUS[1][0] = 'accepted'
+                            order.save()
+                    else:
+                        print('placed order empty')
+                else:
+                    print('user or cus not valid')
+            else:
+                print(':: self not appreved')
+        except Exception as e:
+            print(e)
+            raise Exception(e)
         return super().save(*args, **kwargs)
 
     def __str__(self):

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<!---------track orders details------------>
+<div class="small-container cart-page" id="cart-main-container">
+    {% if orders %}
+    <table>
+        <thead id="">
+            <th>Sl No:</th>
+            <th>Product</th>
+            <th>Will Arrive with-in</th>
+            <th>Status</th>
+        </thead>
+        
+        {% for order in orders %}
+        <tr>
+            <td>
+                <p>{{forloop.counter}}</p>
+            </td>
+            <td>
+                <div class="cart-info">
+                    {% with order.product.image.all|first as image %}
+                        <img src="{{image.get_url}}"/>
+                    {% endwith %}
+                    <div class="">
+                        <p>{{order.product.title}}</p>
+                        <small>&#2547; {{order.product.discount_price}}</small>
+                        <br>
+                        {% comment %} <p class="remove" product_id="{{order.product.product_id}}">Remove</p> {% endcomment %}
+                    </div>
+                </div>
+            </td>
+            <td id="">
+                <p class="">{{order.will_arrive_on}}</p>
+            </td>
+            <td>
+                <p>{{order.status|capfirst}}</p>
+            </td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    
+    {% else %}
+    <div class="small-container">
+        <div class="empty-cart">
+            <h3>You don't have any products in your cart!</h3>
+        </div>
+        <br>
+        <a href="{% url 'shop:products' %}" class="btn">Continue Shoping</a>
+    </div>
+    {% endif %}
+</div>
+
+
+<!-----address-------->
+<div class="small-container" id="select-address" style="display: none;">
+    <div class="row">
+        {% if customers %}
+        <form action="{% url 'shop:checkout' %}" method="POST">
+            {% csrf_token %}
+            {% for customer in customers %}
+            <div class="col-4" style="text-align: left; flex-basis: 49%;">
+                <input type="radio" name="customer-id" value="{{customer.customer_id}}" style="margin: -20px 0px 20px 0px;" {% if forloop.counter == 1 %}checked{% endif %}>
+                <label for="">select</label>
+                <h3 class="">{% if forloop.counter == 1 %}Default Address {% else %} Address: {{ forloop.counter }}{% endif %} </h3>
+                <p>Name :     <span>{{customer.name}}</span></p>
+                <p>District : <span>{{customer.district}}</span></p>
+                <p>City :     <span>{{customer.city}}</span></p>
+                <p>Adress:    <span>{{customer.address}}</span></p>
+                <p>Phone :    <span>{{customer.phone}}</span></p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn">Continue</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock content %}

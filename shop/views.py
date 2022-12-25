@@ -4,9 +4,12 @@ from django.views.generic import ListView, DetailView
 from shop.models import Product, Cart, Customer, OrderPlaced, Payment
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from datetime import datetime, timedelta
 
 from account.utails import login_using_session
 SHIPING_CHARGE = 50
+def DELIVERY_DATE():
+    return datetime.today() + timedelta(days=4)
 
 def home(request):
     if not request.user.is_authenticated:
@@ -204,6 +207,8 @@ def make_payment(request, pay_method):
             payment.orders.add(order)
             
             order.is_paid = True
+            order.pay_method = pay_method
+            order.will_arrive_on = DELIVERY_DATE()
             order.save()
         total_cost = total_cost + SHIPING_CHARGE
 
@@ -233,6 +238,8 @@ def payment(request):
                     payment.orders.add(order)
                     
                     order.is_paid = True
+                    order.pay_method = 'cod'
+                    order.will_arrive_on = DELIVERY_DATE()
                     order.save()
                 total_cost = total_cost + SHIPING_CHARGE
 
@@ -253,3 +260,17 @@ def payment(request):
 
     # return render(request, 'shop/payment_method.html', {})
     return redirect('/account/profile')
+
+@login_required
+def track_orders(request):
+    print(request)
+    user = request.user
+    
+    customers = [cus for cus in Customer.objects.filter(_user=user)]
+    placed_order = OrderPlaced.objects.filter(_user=user, _customer__in=customers, is_paid=True)
+    print(placed_order)
+
+    context = {
+        'orders': placed_order,
+    }
+    return render(request, 'shop/orders.html', context)

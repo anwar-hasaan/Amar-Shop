@@ -5,6 +5,7 @@ from shop.models import Customer, Product, ProductImage, Cart, OrderPlaced, Paym
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
+from django.contrib import messages
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['_user', 'name', 'created_at', 'address']
@@ -33,7 +34,7 @@ class CartAdmin(admin.ModelAdmin):
     ordering = ['_user', 'quantity', 'added_at']
 
 class OrderPlacedAdmin(admin.ModelAdmin):
-    list_display = ['product', 'product_details', 'show_prod_images', '_customer', '_user',  'quantity', 'is_paid', 'status', 'ordered_at']
+    list_display = ['product', 'product_details', 'show_prod_images', '_customer', '_user',  'quantity', 'pay_method', 'is_paid', 'status', 'ordered_at']
     search_fields = ['_user', 'product', 'status']
     ordering = ['_user', 'quantity', 'status', 'ordered_at']
 
@@ -58,6 +59,10 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display = ['id', 'show_user', 'show_customer', 'method', 'amount', 'paid', 'due', 'approved', 'show_orders', 'all_orders_with_this_pay']
     search_fields = ['amount', 'paid', 'due']
     ordering = ['paid_at']
+
+    # messages 
+    # def save_model(self, request, obj, form, change):
+    #       messages.add_message(request, messages.INFO, 'Custom message goes here')
 
     def show_user(self, obj):
         return mark_safe('<a href="{}">{}</a>'.format(
