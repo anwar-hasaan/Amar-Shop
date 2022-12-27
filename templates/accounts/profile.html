@@ -10,7 +10,7 @@
                 <button class="button" onclick="profile()">Profile</button>
                 <button class="button" onclick="change_pass()">Change Pasword</button>
                 <button class="button" onclick="address()">Address</button>
-                <button class="button">Orders</button>
+                <a href="{% url 'shop:track-orders' %}"><button class="button">Orders</button></a>
             </div>
 
             {% comment %} <!--------profile address section---------> {% endcomment %}

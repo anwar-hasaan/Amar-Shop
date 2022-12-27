@@ -37,6 +37,25 @@
             </td>
             <td>
                 <p>{{order.status|capfirst}}</p>
+                <div class="progress-container">
+                    <div class="progress" style="width: {{order.delivery_status}}%;"></div>
+                </div>
+                {% comment %} <div class="progress-container">
+                {% with order.status as status %}
+                    {% if status == 'accepted' %}
+                        <div class="progress" style="width: 20%;">20%</div>
+                    {% elif status == 'packing' %}
+                        <div class="progress" style="width: 40%;"></div>
+                    {% elif status == 'packed' %}
+                        <div class="progress" style="width: 60%;"></div>
+                    {% elif status == 'on_the_way' %}
+                        <div class="progress" style="width: 80%;"></div>
+                    {% elif status == 'deliverd' %}
+                        <div class="progress" style="width: 100%;"></div>
+                    {% else %}
+                        <div class="progress" style="width: 0%;"></div>
+                    {% endif %}
+                {% endwith %} {% endcomment %}
             </td>
         </tr>
         {% endfor %}

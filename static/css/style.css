@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -556,6 +556,22 @@ from .btn:focus{
 
 .pro-col{
     margin: 30px 5px;
+}
+
+/* ---------tracking order progress---- */
+.progress-container {
+    width: 100%;
+    background-color: rgb(185, 175, 175);
+    border-radius: 2px;
+}
+.progress {
+    font-size: 0.8rem;
+    text-align: right;
+    color: white;
+    border-radius: 2px;
+    width: 0%;
+    height: 25px;
+    background-color: #ff523b;
 }
 
 @media only screen and (max-width: 800px){

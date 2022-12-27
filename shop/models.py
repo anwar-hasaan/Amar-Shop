@@ -101,6 +101,22 @@ class OrderPlaced(models.Model):
     def is_deliverd(self):
         return True if self.status == 'deliverd' else False
 
+    @property
+    def delivery_status(self):
+        if self.status == 'accepted':
+            status = 20
+        elif self.status == 'packing':
+            status = 40
+        elif self.status == 'packed':
+            status = 60
+        elif self.status == 'on_the_way':
+            status = 80
+        elif self.status == 'delivered':
+            status = 100
+        else:
+            status = 0
+        return status
+
     def save(self,*args,**kwargs):
         if not self.total_amount:
             self.total_amount = self.quantity * self.product.discount_price

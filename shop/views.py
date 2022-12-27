@@ -263,12 +263,10 @@ def payment(request):
 
 @login_required
 def track_orders(request):
-    print(request)
     user = request.user
     
     customers = [cus for cus in Customer.objects.filter(_user=user)]
     placed_order = OrderPlaced.objects.filter(_user=user, _customer__in=customers, is_paid=True)
-    print(placed_order)
 
     context = {
         'orders': placed_order,
