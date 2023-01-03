@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG') == '1'
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['amar-shop.onrender.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,14 +47,21 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'AmarShop.wsgi.application'
 
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# DB local splite3
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DB render postgres
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default='postgres://amar_shop_user:6mkhVxygoO3HX0g7ETPZVKM6Nohiy3lv@dpg-cec9h6cgqg4ap4bcmscg-a.oregon-postgres.render.com/amar_shop', conn_max_age=600)
 }
 
+# DB local postgres
 # DATABASES={
 #    'default':{
 #       'ENGINE': os.environ.get('DB_ENGINE'),
@@ -95,10 +102,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-if DEBUG:
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# if DEBUG:
+#     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
