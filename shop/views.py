@@ -14,7 +14,7 @@ def DELIVERY_DATE(): # return today + 4 days to delivery
 def home(request):
     if not request.user.is_authenticated:
         login_using_session(request=request)
-    latest = Product.objects.filter(status='lastest')
+    latest = Product.objects.filter(status='latest')
     featured = Product.objects.filter(status='featured')
     exclusive = Product.objects.filter(status='exclusive').first()
     

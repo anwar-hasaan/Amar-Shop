@@ -21,3 +21,13 @@ if (login_btn){
         indicator.style.transform = "translateX(0px)";
     })
 }
+
+// show or hide password
+function showPass(){
+    let password = document.getElementById('login-pass');
+    if (password.type === 'password'){
+        password.type = 'text';
+    }else{
+        password.type = 'password';
+    }
+}

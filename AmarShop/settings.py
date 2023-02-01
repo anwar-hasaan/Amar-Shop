@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -48,18 +50,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'AmarShop.wsgi.application'
 
 # DB local splite3
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # DB render postgres
-import dj_database_url
-DATABASES = {
-    'default': dj_database_url.config(default='postgres://amar_shop_user:6mkhVxygoO3HX0g7ETPZVKM6Nohiy3lv@dpg-cec9h6cgqg4ap4bcmscg-a.oregon-postgres.render.com/amar_shop', conn_max_age=600)
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default='postgres://amar_shop_user:6mkhVxygoO3HX0g7ETPZVKM6Nohiy3lv@dpg-cec9h6cgqg4ap4bcmscg-a.oregon-postgres.render.com/amar_shop', conn_max_age=600)
+# }
 
 # DB local postgres
 # DATABASES={
@@ -102,8 +103,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # if DEBUG:
 #     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)

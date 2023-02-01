@@ -41,7 +41,7 @@ CITY_CHOICES = (
 
 PRODUCT_STATUS = (
     ('normal', 'Normal'),
-    ('lastest', 'Latest Product'),
+    ('latest', 'Latest Product'),
     ('featured', 'Featured Product'),
     ('big_discount', 'Big Discount'),
     ('exclusive', 'Exclusive'),

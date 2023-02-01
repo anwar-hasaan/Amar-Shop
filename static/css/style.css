@@ -496,7 +496,7 @@ from .btn:focus{
 
 /*---------- cart badge-------------- */
 .badge {
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 1px;
     text-align: center;
